@@ -2,20 +2,23 @@
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <body onload='init()'>
         <div id='first_graph'></div>
+        <div>
+            <button onclick="select('US')">US</button>
+        </div>
         <script>
             async function init() {
                 const data = await d3.csv('data/ALL_MFQ30.csv');
 
-                var margin = {top: 30, right: 30, bottom: 30, left: 60},
-                    width = 600 - margin.left - margin.right,
-                    height = 600 - margin.top - margin.bottom;
+                var margin = 50,
+                    width = 800 - margin,
+                    height = 800 - margin;
 
                 var svg = d3.select('#first_graph')
                     .append('svg')
-                        .attr('width', width + margin.left + margin.right)
-                        .attr('height', height + margin.top + margin.bottom)
+                        .attr('width', width + margin * 2.5)
+                        .attr('height', height + margin * 2.5)
                     .append('g')
-                        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+                        .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
 
                 var x = d3.scaleLinear()
                     .domain([0, 5])
@@ -38,6 +41,21 @@
                     .attr("cy", function(d) { return y(d.FAIRNESS_AVG); })
                     .attr('r', 3)
                     .style('fill', function(d) { if (d.Sex == 1) { return 'blue'; } else { return 'pink'; }})
+
+                // x label
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', height + margin)
+                    .style('font-size', 20)
+                    .text('Harm Average')
+                
+                // y label
+                svg.append('text')
+                    .attr('transform', 'rotate(' + -90 + ')')  
+                    .attr('x', -height / 2)
+                    .attr('y', -margin)
+                    .style('font-size', 20)
+                    .text('Fairness Average') 
             }
         </script>
     </body>
