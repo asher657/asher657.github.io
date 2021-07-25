@@ -1,62 +1,96 @@
 <html>
-    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <head>
+        <title>Moral Foundations Theory</title>
+        <link rel='stylesheet' href='style.css'>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+    </script>
+    <script> 
+    $(function(){
+      $("#header").load("header.html"); 
+    });
+    </script>
+    </head>
     <body onload='init()'>
-        <div id='first_graph'></div>
-        <div>
-            <button onclick="select('US')">US</button>
+        <div id='header'></div>
+        <div id='main'>
+            <div id='sheet'>
+                <text>Introduction</text>
+            </div>
+            <p class='main'>
+                &emsp;&emsp;Moral foundations theory is a social psychological theory intended to explain the origins of and variation in human moral reasoning on the basis of innate, modular foundations. It was first proposed by the psychologists Jonathan Haidt, Craig Joseph and Jesse Graham, building on the work of cultural anthropologist Richard Shweder; and subsequently developed by a diverse group of collaborators, and popularized in Haidt's book The Righteous Mind.
+                <br><br>
+                &emsp;&emsp;According to this theory, differences in people's moral concerns can be described in five moral foundations:
+                <ul>
+                    <li><i>Care</i>: protecting and caring for others; opposite of <i>Harm</i></li>
+                    <li><i>Fairness</i>: rendering justice based on agreed rules; opposite of <i>Cheating</i></li>
+                    <li><i>Loyalty</i>: standing with a coalition to compete with other coalitions; opposite of <i>Betrayal</i></li>
+                    <li><i>Authority</i>: submitting to authority and tradition; opposite of <i>Subversion</i></li>
+                    <li><i>Sanctity</i>: abhorrence for disgusting things; opposite of <i>Degredation</i></li>
+                </ul>
+            </p>
+            <p class='main' style="margin-top: 0;">
+                <br>
+                &emsp;&emsp;More details about these foundations including their triggers and relevant virtues can be found in the table below.
+            </p>
+            <br><br><br>
+            <table class='main'>
+                <tr>
+                    <th></th>
+                    <th>Care/Harm</th>
+                    <th>Fairness/Cheating</th>
+                    <th>Loyalty/Betrayal</th>
+                    <th>Authority/Subversion</th>
+                    <th>Sanctity/Degradation</th>
+                </tr>
+                <tr>
+                    <th>Adaptive challenge</th>
+                    <td>Protect and care for children</td>
+                    <td>Reap benefits of two-way partnerships</td>
+                    <td>Form cohesive coalitions</td>
+                    <td>Forge beneficial relationships within hierarchies</td>
+                    <td>Avoid contaminants</td>
+                </tr>
+                <tr>
+                    <th>Original triggers</th>
+                    <td>Suffering, distress, or neediness expressed by one's child</td>
+                    <td>Cheating, cooperation, deception</td>
+                    <td>Threat or challenge to group</td>
+                    <td>Sign of dominance and submission</td>
+                    <td>Waste products, diseased people</td>
+                </tr>
+                <tr>
+                    <th>Current triggers</th>
+                    <td>Baby seals, cute cartoon characters</td>
+                    <td>Marital fidelity, broken vending machines</td>
+                    <td>Sports teams, nations</td>
+                    <td>Bosses, respected professionals</td>
+                    <td>Taboo ideas (communism, racism)</td>
+                </tr>
+                <tr>
+                    <th>Characteristic emotions</th>
+                    <td>Compassion</td>
+                    <td>Anger, gratitude, guilt</td>
+                    <td>Group pride, rage at traitors</td>
+                    <td>Respect, fear</td>
+                    <td>Disgust</td>
+                </tr>
+                <tr>
+                    <th>Relevant virtues</th>
+                    <td>Caring, kindness</td>
+                    <td>Fairness, justice, trustworthiness</td>
+                    <td>Loyalty, patriotism, self-sacrifice</td>
+                    <td>Obedience, deference</td>
+                    <td>Temperance, chastity, piety, cleanliness</td>
+                </tr>
+            </table>
+            <p class='main'>
+                &emsp;&emsp;The relevance of these five foundations to a person's view of what is right or wrong is determined by the Moral Foundations Questionnaire, 30 statements used to rate each of the five foundations. The subjects are told to rank each statement on a scale from 0 ("not at all relevant&#8212;this has nothing to do with my judgments of right and wrong") to 5 ("extremely relevant&#8212;this is one of the most important factors when I judge right and wrong").
+                <br><br>
+                &emsp;&emsp;The data visualized ahead uses the responses from nearly 12,000 people from 19 different countries. 
+            </p>
+            <br><br><br>
         </div>
-        <script>
-            async function init() {
-                const data = await d3.csv('data/ALL_MFQ30.csv');
-
-                var margin = 50,
-                    width = 800 - margin,
-                    height = 800 - margin;
-
-                var svg = d3.select('#first_graph')
-                    .append('svg')
-                        .attr('width', width + margin * 2.5)
-                        .attr('height', height + margin * 2.5)
-                    .append('g')
-                        .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
-
-                var x = d3.scaleLinear()
-                    .domain([0, 5])
-                    .range([0, width]);
-                svg.append('g')
-                    .attr('transform', 'translate(0,' + height + ')')
-                    .call(d3.axisBottom(x));
-
-                var y = d3.scaleLinear()
-                    .domain([0, 5])
-                    .range([height, 0]);
-                svg.append('g')
-                    .call(d3.axisLeft(y));
-
-                svg.append('g')
-                    .selectAll('dot')
-                    .data(data)
-                    .enter().append('circle')
-                    .attr('cx', function(d) { return x(d.HARM_AVG); })
-                    .attr("cy", function(d) { return y(d.FAIRNESS_AVG); })
-                    .attr('r', 3)
-                    .style('fill', function(d) { if (d.Sex == 1) { return 'blue'; } else { return 'pink'; }})
-
-                // x label
-                svg.append('text')
-                    .attr('x', width / 2)
-                    .attr('y', height + margin)
-                    .style('font-size', 20)
-                    .text('Harm Average')
-                
-                // y label
-                svg.append('text')
-                    .attr('transform', 'rotate(' + -90 + ')')  
-                    .attr('x', -height / 2)
-                    .attr('y', -margin)
-                    .style('font-size', 20)
-                    .text('Fairness Average') 
-            }
-        </script>
     </body>
 </html>

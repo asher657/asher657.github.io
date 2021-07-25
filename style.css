@@ -1,0 +1,90 @@
+:root {
+    --one: #080705;
+    --two: #40434e;
+    --three: #702632;
+    --four: #912f40;
+    --five: #fffffa;
+    --six: #9498a3;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--six);
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#menu {
+    color: var(--five);
+    background-color: var(--two);
+    height: 150px;
+    text-align: center;
+    border: 3px solid var(--four);
+    margin-bottom: 10px;
+}
+
+button.menu {
+    color: var(--five);
+    width: 19%;
+    height: 30%;
+    font-size: x-large;
+    border: 1px solid var(--four);
+    background-color: var(--three);
+}
+
+#sheet {
+    margin: 50 75 0 75;
+    font-size: x-large;
+    font-weight: bolder;
+
+    border-bottom: 2px solid var(--four);
+}
+
+#main {
+    border: 3px solid var(--four);
+    color: var(--one);
+
+    background-color: var(--six);
+
+    margin: 0 50 0 50;
+    height: auto;
+}
+
+.main {
+    display: flex;
+    justify-content: left;
+}
+
+p.main {
+    margin: 50 75 0 75;
+
+    font-size: large;
+}
+
+ul {
+    margin: 10 0 0 125;
+
+    font-size: large;
+}
+
+table.main {
+    color: var(--one);
+    margin: 0 110 50 110;
+    text-align: center;
+    border: 1px solid var(--four);
+
+    background-color: var(--six);
+
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid var(--four);
+    width: 5000;
+    height: 75;
+}
