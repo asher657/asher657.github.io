@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Sheet 1</title>
+        <link rel='stylesheet' href='style.css'>
+        <script src='https://d3js.org/d3.v5.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+        </script>
+        <script type='text/javascript' src='functions.js'></script>
+        <script> 
+            $(function(){
+            $("#header").load("header.html"); 
+            });
+        </script>
+    </head>
+    <body onload='sheet1()'>
+        <div id='header'></div>
+        <div id='main'>
+            <div id='sheet'>
+                <text>Sheet 1</text>
+            </div>
+            <br><br><br>
+            <div id='graph'></div>
+        <br><br><br>
+        </div>
+    </body>
+</html>

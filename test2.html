@@ -1,17 +1,10 @@
 <html>
     <script src='https://d3js.org/d3.v5.min.js'></script>
-    <script type='text/javascript' src='init.js'></script>
+    <script type='text/javascript' src='functions.js'></script>
     <body id='body' onload='init()'>
-        <div>
-            <button onclick="select('US')">US</button>
-        </div>
         <div id='first_graph'></div>
         <script>
-            
-
-            async function select(category) {
-                window.location.replace('test.html');
-
+            async function init() {
                 document.getElementById('first_graph').innerHTML = "";
                 const data = await d3.csv('data/ALL_MFQ30.csv');
 
@@ -41,7 +34,7 @@
 
                 svg.append('g')
                     .selectAll('dot')
-                    .data(data.filter(function(d) { return d.Country == category; }))
+                    .data(data)
                     .enter().append('circle')
                     .attr('cx', function(d) { return x(d.HARM_AVG); })
                     .attr("cy", function(d) { return y(d.FAIRNESS_AVG); })
