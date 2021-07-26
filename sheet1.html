@@ -2,6 +2,7 @@
     <head>
         <title>Sheet 1</title>
         <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='sheet1.css'>
         <script src='https://d3js.org/d3.v5.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -16,12 +17,39 @@
     </head>
     <body onload='sheet1()'>
         <div id='header'></div>
-        <div id='main'>
+        <div id='main' class='row'>
             <div id='sheet'>
                 <text>Sheet 1</text>
             </div>
-            <br><br><br>
-            <div id='graph'></div>
+            <br>
+            <div id='graph' class='column'></div>
+            <div id='ui' class='column'>
+                <div id='ui_child' class='column'>
+                    <div id=x_axis class='dropdown'>
+                        <button id='x_btn' class='dropbtn' value='Care'>Choose x axis</button>
+                        <div class='dropdown-content'>
+                            <a onclick="chooseXAxis('Care')">Care</a>
+                            <a onclick="chooseXAxis('Fairness')">Fairness</a>
+                            <a onclick="chooseXAxis('Loyalty')">Loyalty</a>
+                            <a onclick="chooseXAxis('Authority')">Authority</a>
+                            <a onclick="chooseXAxis('Sanctity')">Sanctity</a>
+                        </div>
+                    </div>
+                    <div id=y_axis class='dropdown'>
+                        <button id='y_btn' class='dropbtn' value='Fairness'>Choose y axis</button>
+                        <div class='dropdown-content'>
+                            <a onclick="chooseYAxis('Care')">Care</a>
+                            <a onclick="chooseYAxis('Fairness')">Fairness</a>
+                            <a onclick="chooseYAxis('Loyalty')">Loyalty</a>
+                            <a onclick="chooseYAxis('Authority')">Authority</a>
+                            <a onclick="chooseYAxis('Sanctity')">Sanctity</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-left: 50px; padding-right: 50px; padding-top: 20px;">
+                    <button id='submit_axes' onclick="submitAxes()">View Graph</button>
+                </div>
+            </div>
         <br><br><br>
         </div>
     </body>

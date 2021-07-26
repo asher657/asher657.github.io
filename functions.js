@@ -2,20 +2,66 @@ function openSheet(sheet) {
     window.location.replace(sheet)
 }
 
-async function sheet1() {
+function chooseXAxis(type) {
+    var button = document.getElementById('x_btn');
+    button.innerHTML = type;
+    button.value = type;
+}
+
+function chooseYAxis(type) {
+    var button = document.getElementById('y_btn');
+    button.innerHTML = type;
+    button.value = type;
+}
+
+function submitAxes() {
+    var x = document.getElementById('x_btn').value;
+    var y = document.getElementById('y_btn').value;
+    sheet1(x, y);
+}
+
+async function sheet1(xAxis = 'Care', yAxis = 'Fairness') {
     const data = await d3.csv('data/ALL_MFQ30.csv');
 
+    document.getElementById('graph').innerHTML = '';
+
+    var dataXAxis;
+    var dataYAxis;
+    
+    if (xAxis == 'Care') {
+        dataXAxis = function(d) { return x(d.CARE_AVG); }
+    } else if (xAxis == 'Fairness') {
+        dataXAxis = function(d) { return x(d.FAIRNESS_AVG); }
+    } else if (xAxis == 'Loyalty') {
+        dataXAxis = function(d) { return x(d.LOYALTY_AVG); }
+    } else if (xAxis == 'Authority') {
+        dataXAxis = function(d) { return x(d.AUTHORITY_AVG); }
+    } else {
+        dataXAxis = function(d) { return x(d.SANCTITY_AVG); }
+    }
+    
+    if (yAxis == 'Care') {
+        dataYAxis = function(d) { return y(d.CARE_AVG); }
+    } else if (yAxis == 'Fairness') {
+        dataYAxis = function(d) { return y(d.FAIRNESS_AVG); }
+    } else if (yAxis == 'Loyalty') {
+        dataYAxis = function(d) { return y(d.LOYALTY_AVG); }
+    } else if (yAxis == 'Authority') {
+        dataYAxis = function(d) { return y(d.AUTHORITY_AVG); }
+    } else {
+        dataYAxis = function(d) { return y(d.SANCTITY_AVG); }
+    }
+
     var margin = 50,
-        width = 230,
-        height = 230;
+        width = 700,
+        height = 700;
 
     var male = '#40434e',
         female = '#912f40';
 
-    // authority ingroup -----------------------------------------------------------
     var svg = d3.select('#graph')
         .append('svg')
-            .attr('width', width + margin * 2.5)
+            .attr('width', width + margin * 2.25)
             .attr('height', height + margin * 2.5)
         .append('g')
             .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
@@ -37,113 +83,47 @@ async function sheet1() {
         .selectAll('dot')
         .data(data)
         .enter().append('circle')
-        .attr('cx', function(d) { return x(d.AUTHORITY_AVG); })
-        .attr("cy", function(d) { return y(d.INGROUP_AVG); })
-        .attr('r', 2)
-        .style('fill', function(d) { if (d.Sex == 1) { return 'blue'; } else { return 'pink'; }})
-
-    // x label
-    svg.append('text')
-        .attr('x', width / 3.5)
-        .attr('y', height + margin / 1.25)
-        .style('font-size', 15)
-        .text('Ingroup Average')
-    
-    // y label
-    svg.append('text')
-        .attr('transform', 'rotate(' + -90 + ')')  
-        .attr('x', -height / 1.25)
-        .attr('y', -margin / 1.25)
-        .style('font-size', 15)
-        .text('Authority Average') 
-
-    // authority purity -----------------------------------------------------------
-    var svg = d3.select('#graph')
-    .append('svg')
-        .attr('width', width + margin * 2.5)
-        .attr('height', height + margin * 2.5)
-    .append('g')
-        .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
-
-    var x = d3.scaleLinear()
-        .domain([0, 5])
-        .range([0, width]);
-    svg.append('g')
-        .attr('transform', 'translate(0,' + height + ')')
-        .call(d3.axisBottom(x));
-
-    var y = d3.scaleLinear()
-        .domain([0, 5])
-        .range([height, 0]);
-    svg.append('g')
-        .call(d3.axisLeft(y));
-
-    svg.append('g')
-        .selectAll('dot')
-        .data(data)
-        .enter().append('circle')
-        .attr('cx', function(d) { return x(d.AUTHORITY_AVG); })
-        .attr("cy", function(d) { return y(d.PURITY_AVG); })
+        .attr('cx', dataXAxis)
+        .attr("cy", dataYAxis)
         .attr('r', 2)
         .style('fill', function(d) { if (d.Sex == 1) { return male; } else { return female; }})
 
     // x label
     svg.append('text')
-        .attr('x', width / 3.5)
-        .attr('y', height + margin / 1.25)
-        .style('font-size', 15)
-        .text('Purity Average')
-
+        .attr('x', width / 2.5)
+        .attr('y', height + margin * 1.25)
+        .style('font-size', 25)
+        .text(xAxis + ' Average')
+    
     // y label
     svg.append('text')
         .attr('transform', 'rotate(' + -90 + ')')  
-        .attr('x', -height / 1.25)
-        .attr('y', -margin / 1.25)
-        .style('font-size', 15)
-        .text('Authority Average') 
+        .attr('x', -height / 1.5)
+        .attr('y', -margin)
+        .style('font-size', 25)
+        .text(yAxis + ' Average') 
 
-    // harm fairness -----------------------------------------------------------
-    var svg = d3.select('#graph')
-    .append('svg')
-        .attr('width', width + margin * 2.5)
-        .attr('height', height + margin * 2.5)
-    .append('g')
-        .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
-
-    var x = d3.scaleLinear()
-        .domain([0, 5])
-        .range([0, width]);
-    svg.append('g')
-        .attr('transform', 'translate(0,' + height + ')')
-        .call(d3.axisBottom(x));
-
-    var y = d3.scaleLinear()
-        .domain([0, 5])
-        .range([height, 0]);
-    svg.append('g')
-        .call(d3.axisLeft(y));
-
-    svg.append('g')
-        .selectAll('dot')
-        .data(data)
-        .enter().append('circle')
-        .attr('cx', function(d) { return x(d.HARM_AVG); })
-        .attr("cy", function(d) { return y(d.FAIRNESS_AVG); })
-        .attr('r', 2)
-        .style('fill', function(d) { if (d.Sex == 1) { return 'blue'; } else { return 'pink'; }})
-
-    // x label
-    svg.append('text')
-        .attr('x', width / 3.5)
-        .attr('y', height + margin / 1.25)
-        .style('font-size', 15)
-        .text('Harm Average')
-
-    // y label
-    svg.append('text')
-        .attr('transform', 'rotate(' + -90 + ')')  
-        .attr('x', -height / 1.25)
-        .attr('y', -margin / 1.25)
-        .style('font-size', 15)
-        .text('Fairness Average') 
-}
+    var legend = d3.select('#graph')
+        .append('svg')
+        .attr('width', 175)
+        .attr('height', 300)
+        .attr('transform', 'translate(' + -margin * 1.75 + ',' + (-height + margin * 2.5) + ')');
+    legend.append('circle')
+        .attr('cx', 100)
+        .attr('cy', 130)
+        .attr('r', 6)
+        .style('fill', male);
+    legend.append('circle')
+        .attr('cx', 100)
+        .attr('cy', 160)
+        .attr('r', 6)
+        .style('fill', female);
+    legend.append('text')
+        .attr('x', 120)
+        .attr('y', 136)
+        .text('Male');
+    legend.append('text')
+        .attr('x', 120)
+        .attr('y', 166)
+        .text('Female');
+}   

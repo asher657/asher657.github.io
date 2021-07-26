@@ -11,6 +11,16 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.column {
+    float: left;
+}
+
+.row::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
 body {
     background-color: var(--six);
     margin-left: 75px;
@@ -34,6 +44,10 @@ button.menu {
     height: 30%;
     font-size: x-large;
     border: 1px solid var(--four);
+    background-color: var(--four);
+}
+
+button.menu:hover {
     background-color: var(--three);
 }
 
