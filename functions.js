@@ -63,6 +63,7 @@ async function sheet1(xAxis = 'Care', yAxis = 'Fairness', firstTime = true) {
         .append('svg')
             .attr('width', width + margin * 2.25)
             .attr('height', height + margin * 2.5)
+            .attr('id', 'plot')
         .append('g')
             .attr('transform', 'translate(' + margin * 2 + ',' + margin + ')');
 
@@ -136,32 +137,52 @@ async function sheet1(xAxis = 'Care', yAxis = 'Fairness', firstTime = true) {
             .transition().duration(1000)
             .attr('y', 166)
             .text('Female');
+
+        var annotation = d3.select('#plot')
+            .append('g')
+            .attr('id', 'annotation')
+
+        annotation.append('rect')
+            .attr('width', 300)
+            .attr('height', 175)
+            .style('fill', '#912f40')
+            .style('opacity', 0.75)
+            .transition().duration(1000)
+            .attr('transform', 'translate(' + (width - 200) + ',' + (height - margin * 2.75) + ')')
+
+        annotation.append('text')
+            .attr('x', 25)
+            .attr('y', 30)
+            .style('fill', '#fffffa')
+            .transition().duration(1000)
+            .attr('transform', 'translate(' + (width - 200) + ',' + (height - margin * 2.75) + ')')
+            .append('tspan')
+            .text('The researchers found test')
+
     } else {
         var legend = d3.select('#graph')
-        .append('svg')
-        .attr('width', 175)
-        .attr('height', 300)
-        .attr('transform', 'translate(' + -margin * 1.75 + ',' + (-height + margin * 2.5) + ')');
-    legend.append('circle')
-        .attr('cx', 500)
-        .attr('cx', 100)
-        .attr('cy', 130)
-        .attr('r', 6)
-        .style('fill', male);
-    legend.append('circle')
-        .attr('cx', 100)
-        .attr('cy', 160)
-        .attr('r', 6)
-        .style('fill', female);
-    legend.append('text')
-        .attr('x', 120)
-        .attr('y', 136)
-        .text('Male');
-    legend.append('text')
-        .attr('x', 120)
-        .attr('y', 166)
-        .text('Female');
-    }
-
-    
+            .append('svg')
+            .attr('width', 175)
+            .attr('height', 300)
+            .attr('transform', 'translate(' + -margin * 1.75 + ',' + (-height + margin * 2.5) + ')');
+        legend.append('circle')
+            .attr('cx', 500)
+            .attr('cx', 100)
+            .attr('cy', 130)
+            .attr('r', 6)
+            .style('fill', male);
+        legend.append('circle')
+            .attr('cx', 100)
+            .attr('cy', 160)
+            .attr('r', 6)
+            .style('fill', female);
+        legend.append('text')
+            .attr('x', 120)
+            .attr('y', 136)
+            .text('Male');
+        legend.append('text')
+            .attr('x', 120)
+            .attr('y', 166)
+            .text('Female');
+    }    
 }   
