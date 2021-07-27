@@ -17,10 +17,10 @@ function chooseYAxis(type) {
 function submitAxes() {
     var x = document.getElementById('x_btn').value;
     var y = document.getElementById('y_btn').value;
-    sheet1(x, y);
+    sheet1(x, y, false);
 }
 
-async function sheet1(xAxis = 'Care', yAxis = 'Fairness') {
+async function sheet1(xAxis = 'Care', yAxis = 'Fairness', firstTime = true) {
     const data = await d3.csv('data/ALL_MFQ30.csv');
 
     document.getElementById('graph').innerHTML = '';
@@ -92,8 +92,8 @@ async function sheet1(xAxis = 'Care', yAxis = 'Fairness') {
     svg.append('text')
         .attr('x', width / 2.5)
         .attr('y', height + margin * 1.25)
-        .style('font-size', 25)
         .text(xAxis + ' Average')
+        .style('font-size', 25)
     
     // y label
     svg.append('text')
@@ -103,12 +103,47 @@ async function sheet1(xAxis = 'Care', yAxis = 'Fairness') {
         .style('font-size', 25)
         .text(yAxis + ' Average') 
 
-    var legend = d3.select('#graph')
+    if (firstTime) {
+        var legend = d3.select('#graph')
+            .append('svg')
+            .attr('width', 175)
+            .attr('height', 300)
+            .attr('transform', 'translate(' + -margin * 1.75 + ',' + (-height + margin * 2.5) + ')');
+        legend.append('circle')
+            .attr('cx', 500)
+            .transition().duration(1000).delay(200)
+            .attr('cx', 100)
+            .transition().duration(1000).delay(200)
+            .attr('cy', 130)
+            .attr('r', 6)
+            .style('fill', male);
+        legend.append('circle')
+            .transition().duration(1000)
+            .attr('cx', 100)
+            .transition().duration(1000)
+            .attr('cy', 160)
+            .attr('r', 6)
+            .style('fill', female);
+        legend.append('text')
+            .transition().duration(1250).delay(200)
+            .attr('x', 120)
+            .transition().duration(1000).delay(200)
+            .attr('y', 136)
+            .text('Male');
+        legend.append('text')
+            .transition().duration(1250)
+            .attr('x', 120)
+            .transition().duration(1000)
+            .attr('y', 166)
+            .text('Female');
+    } else {
+        var legend = d3.select('#graph')
         .append('svg')
         .attr('width', 175)
         .attr('height', 300)
         .attr('transform', 'translate(' + -margin * 1.75 + ',' + (-height + margin * 2.5) + ')');
     legend.append('circle')
+        .attr('cx', 500)
         .attr('cx', 100)
         .attr('cy', 130)
         .attr('r', 6)
@@ -126,4 +161,7 @@ async function sheet1(xAxis = 'Care', yAxis = 'Fairness') {
         .attr('x', 120)
         .attr('y', 166)
         .text('Female');
+    }
+
+    
 }   

@@ -73,3 +73,9 @@
 .dropdown:hover .dropbtn {
     background-color: var(--three);
 }
+
+.line {
+    stroke: var(--five);
+    fill: none;
+    stroke-width: 3;
+}
