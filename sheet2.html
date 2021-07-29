@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Sheet 2</title>
+        <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='sheet2.css'>
+        <script src='https://d3js.org/d3.v7.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+        </script>
+        <script type='text/javascript' src='sheet2.js'></script>
+        <script> 
+            $(function(){
+            $("#header").load("header.html"); 
+            });
+        </script>
+    </head>
+    <body onload='sheet2()'>
+        <div id='header'></div>
+        <div id='main' class='row'>
+            <div id='sheet'>
+                <text>Sheet 2</text>
+            </div>
+            <br>
+            <div id='graph' class='column'></div>
+            <div id='ui' class='column'>
+
+            </div>
+        </div>
+    </body>
+</html>

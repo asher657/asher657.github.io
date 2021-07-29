@@ -75,9 +75,9 @@
                         .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
                         .text('between Care and Fairness.');
 
-                    next.transition().duration(1000)
-                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
-                        .attr('onclick', 'nextAnnotation(2)');
+                    next.attr('onclick', 'nextAnnotation(2)')
+                        .transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')');
                 } else if (num == 2) {
                     line_1.transition().duration(1000)
                         .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
@@ -87,9 +87,9 @@
                         .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
                         .text('relevant did the same for Fairness.');
 
-                    next.transition().duration(1000)
-                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
-                        .attr('onclick', 'nextAnnotation(3)');
+                    next.attr('onclick', 'nextAnnotation(3)')
+                        .transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')');
                 } else if (num == 3) {
                     line_1.transition().duration(1000)
                         .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
@@ -99,9 +99,9 @@
                         .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
                         .text('Loyalty, Authority, and Sanctity.');
 
-                    next.transition().duration(1000)
-                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')')
-                        .attr('onclick', 'nextAnnotation(4)');
+                    next.attr('onclick', 'nextAnnotation(4)')
+                        .transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 575) + ',' + (height - margin * 1.5) + ')');
                 } else if (num == 4) {
                     box.transition().duration(1000)
                         .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')');
@@ -114,10 +114,10 @@
                         .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')')
                         .text('the other relationships.');
 
-                    next.transition().duration(1000)
+                    next.attr('onclick', 'nextAnnotation(5)')
+                        .transition().duration(1000)
                         .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')')
-                        .text('Close')
-                        .attr('onclick', 'nextAnnotation(5)');
+                        .text('Close');
                 } else if (num == 5) {
                     box.transition().duration(1000)
                         .style('opacity', 0);
