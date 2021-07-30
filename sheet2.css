@@ -1,0 +1,25 @@
+.male {
+    opacity: 80%;
+    fill: var(--two);
+}
+
+.female {
+    opacity: 60%;
+    fill: var(--four);
+}
+
+.tooltip {
+    opacity: 0;
+}
+
+#tooltip {
+    padding: 20 20 20 20;
+    opacity: 0;
+    font-size: large;
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: 40px;
+    background: var(--five);
+    border: 2px solid var(--four);
+}

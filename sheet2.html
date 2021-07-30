@@ -2,12 +2,14 @@
     <head>
         <title>Sheet 2</title>
         <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='sheet1.css'>
         <link rel='stylesheet' href='sheet2.css'>
         <script src='https://d3js.org/d3.v7.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous">
         </script>
+        <script type='text/javascript' src='functions.js'></script>
         <script type='text/javascript' src='sheet2.js'></script>
         <script> 
             $(function(){
@@ -15,17 +17,59 @@
             });
         </script>
     </head>
-    <body onload='sheet2()'>
+    <body onload='loadData()'>
         <div id='header'></div>
         <div id='main' class='row'>
+            <div id='tooltip'></div>
             <div id='sheet'>
                 <text>Sheet 2</text>
             </div>
             <br>
             <div id='graph' class='column'></div>
             <div id='ui' class='column'>
-
+                <div id='ui_child' class='column'>
+                    <div id=x_axis class='dropdown'>
+                        <button id='moral_button' class='dropbtn' value='Care'>Choose Moral</button>
+                        <div class='dropdown-content'>
+                            <a onclick="chooseMoral('Care')">Care</a>
+                            <a onclick="chooseMoral('Fairness')">Fairness</a>
+                            <a onclick="chooseMoral('Loyalty')">Loyalty</a>
+                            <a onclick="chooseMoral('Authority')">Authority</a>
+                            <a onclick="chooseMoral('Sanctity')">Sanctity</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-left: 50px; padding-right: 50px; padding-top: 20px;">
+                    <button id='submit_axes' onclick="submit()">View Graph</button>
+                </div>
             </div>
         </div>
+
+        <script>
+            var map;
+            async function loadData() {
+                var data = await d3.csv('data/ALL_MFQ30.csv')
+                map = d3.map(data, function(d) {
+                    return {
+                        Care: d.CARE_AVG,
+                        Fairness: d.FAIRNESS_AVG,
+                        Loyalty: d.LOYALTY_AVG,
+                        Authority: d.AUTHORITY_AVG,
+                        Sanctity: d.SANCTITY_AVG,
+                        Sex: d.Sex,
+                        Country: d.Country
+                    }
+                });
+                createSheet('Care', map);
+            }
+
+            
+            function submit() {
+                var moral = document.getElementById('moral_button').value;
+                updateSheet(moral, map);
+            }
+
+        </script>
+
     </body>
 </html>
