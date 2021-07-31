@@ -83,7 +83,7 @@
                 var svg = d3.select('#svg');
 
                 d3.select('#x_label')
-                    .text('Responses for ' + moral);
+                    .text(moral + ' Average');
 
                 var y = d3.scaleLinear()
                     .domain([0, Math.max(counts.male.max, counts.female.max)])
@@ -192,6 +192,60 @@
                     .on('mouseout', function() { tooltip.style('opacity', 0) });
             }
 
+        </script>
+
+        <script>
+            function nextAnnotation(num) {
+                var width = 700;
+                var height = 700;
+                var margin = 50;
+
+                var box = d3.select('#box');
+                var line_1 = d3.select('#line_1');
+                var line_2 = d3.select('#line_2');
+                var next = d3.select('#next');
+                if (num == 1) {
+                    line_1.text('More women rated Care higher than');
+
+                    line_2.text('men, 88% compared to 76%.');
+
+                    next.attr('onclick', 'nextAnnotation(2)')
+                } else if (num == 2) {
+                    line_1.text('The same is true for Fairness, but');
+
+                    line_2.text('far more subtle.');
+
+                    next.attr('onclick', 'nextAnnotation(3)')
+                } else if (num == 3) {
+                    box.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')');
+                    
+                    line_1.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')')
+                        .text('Use the dropdown on the right to view');
+
+                    line_2.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')')
+                        .text('the other relationships.');
+
+                    next.attr('onclick', 'nextAnnotation(4)')
+                        .transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 200) + ',' + (margin * 5) + ')')
+                        .text('Close');
+                } else if (num == 4) {
+                    box.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    line_1.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    line_2.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    next.transition().duration(1000)
+                        .style('opacity', 0);
+                }
+            }
         </script>
 
     </body>

@@ -44,7 +44,7 @@ function createSheet(column, map) {
         .attr('x', width / 2.5)
         .attr('y', height + margin * 1.25)
         .attr('id', 'x_label')
-        .text('Responses for ' + column)
+        .text(column + ' Average')
         .style('font-size', 25)
     
     // y label
@@ -283,6 +283,48 @@ function createSheet(column, map) {
         .transition().duration(1000)
         .attr('y', 166)
         .text('Female');
+
+
+    var annotation = d3.select('#plot')
+        .append('g')
+        .attr('id', 'annotation')
+
+    annotation.append('rect')
+        .attr('id', 'box')
+        .attr('width', 300)
+        .attr('height', 100)
+        .style('fill', '#912f40')
+        .style('opacity', 0.9)
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 1.5) + ')')
+
+    annotation.append('text')
+        .attr('id', 'line_1')
+        .attr('x', 25)
+        .attr('y', 30)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 1.5) + ')')
+        .text('There are also some differences')
+    
+    annotation.append('text')
+        .attr('id', 'line_2')
+        .attr('x', 25)
+        .attr('y', 50)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 1.5) + ')')
+        .text('in response between sexes.')
+
+    annotation.append('text')
+        .attr('id', 'next')
+        .attr('x', 250)
+        .attr('y', 80)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 1.5) + ')')
+        .text('Next')
+        .attr('onclick', 'nextAnnotation(1)')
 }
 
 function getCounts(data, column) {
