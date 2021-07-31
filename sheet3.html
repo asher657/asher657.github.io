@@ -44,21 +44,10 @@
         </div>
 
         <script>
-            var map;
             async function loadData() {
-                var data = await d3.csv('data/ALL_MFQ30.csv')
-                map = d3.map(data, function(d) {
-                    return {
-                        Care: d.CARE_AVG,
-                        Fairness: d.FAIRNESS_AVG,
-                        Loyalty: d.LOYALTY_AVG,
-                        Authority: d.AUTHORITY_AVG,
-                        Sanctity: d.SANCTITY_AVG,
-                        // Sex: d.Sex,
-                        // Country: d.Country
-                    }
-                });
-                createSheet(data, map);
+                var data = await d3.csv('data/CountryAvg.csv');
+
+                createSheet(data);
             }
         </script>
 
