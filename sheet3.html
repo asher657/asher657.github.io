@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>Sheet 3</title>
+        <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='sheet1.css'>
+        <script src='https://d3js.org/d3.v5.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+        </script>
+        <script type='text/javascript' src='sheet3.js'></script>
+        <script> 
+            $(function(){
+            $("#header").load("header.html"); 
+            });
+        </script>
+    </head>
+    <body onload='loadData()'>
+        <div id='header'></div>
+        <div id='main' class='row'>
+            <div id='sheet'>
+                <text>Sheet 3</text>
+            </div>
+            <br>
+            <div id='graph' class='column'></div>
+            <div id='ui' class='column'>
+                <div id='ui_child' class='column'>
+                    <div id=x_axis class='dropdown'>
+                        <button id='x_btn' class='dropbtn' value='Care'>Choose x axis</button>
+                        <div class='dropdown-content'>
+                            <a onclick="chooseXAxis('Care')">Care</a>
+                            <a onclick="chooseXAxis('Fairness')">Fairness</a>
+                            <a onclick="chooseXAxis('Loyalty')">Loyalty</a>
+                            <a onclick="chooseXAxis('Authority')">Authority</a>
+                            <a onclick="chooseXAxis('Sanctity')">Sanctity</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-left: 50px; padding-right: 50px; padding-top: 20px;">
+                    <button id='submit_axes' onclick="submitAxes()">View Graph</button>
+                </div>
+            </div>
+        <br><br><br>
+        </div>
+
+        <script>
+            var map;
+            async function loadData() {
+                var data = await d3.csv('data/ALL_MFQ30.csv')
+                map = d3.map(data, function(d) {
+                    return {
+                        Care: d.CARE_AVG,
+                        Fairness: d.FAIRNESS_AVG,
+                        Loyalty: d.LOYALTY_AVG,
+                        Authority: d.AUTHORITY_AVG,
+                        Sanctity: d.SANCTITY_AVG,
+                        // Sex: d.Sex,
+                        // Country: d.Country
+                    }
+                });
+                createSheet(data, map);
+            }
+        </script>
+
+    </body>
+</html>

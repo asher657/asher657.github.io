@@ -1,7 +1,3 @@
-function openSheet(sheet) {
-    window.location.replace(sheet)
-}
-
 function chooseXAxis(type) {
     var button = document.getElementById('x_btn');
     button.innerHTML = type;

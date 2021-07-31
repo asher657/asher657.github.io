@@ -393,32 +393,9 @@ function getCounts(data, column) {
     male.max = Math.max(male.bin_1, male.bin_2, male.bin_3, male.bin_4, male.bin_5);
     female.max = Math.max(female.bin_1, female.bin_2, female.bin_3, female.bin_4, female.bin_5);
 
-    console.log(male);
-    console.log(female);
     return {male: male, female: female}
 }
 
 function precision(x) {
     return Number.parseFloat(x).toPrecision(2);
 }
-
-// function updateSheet(column, map) {
-//     var counts = getCounts(map, column);
-
-//     var tooltip = d3.select('#tooltip');
-
-//     var male = '#40434e';
-//     var female = '#912f40';
-
-//     var margin = 50,
-//         width = 700,
-//         height = 700;
-
-//     var svg = d3.select('#svg');
-
-//     var y = d3.scaleLinear()
-//         .domain([0, Math.max(counts.male.max, counts.female.max)])
-//         .range([height, 0]);
-//     svg.select('#y_axis')
-//         .call(d3.axisLeft(y));
-// }
