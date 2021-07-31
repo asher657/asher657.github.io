@@ -3,7 +3,7 @@ function createSheet(data) {
     var female = '#912f40';
 
     var margin = 50,
-        width = 700,
+        width = 1300,
         height = 700;
 
     var svg = d3.select('#graph')
@@ -23,7 +23,7 @@ function createSheet(data) {
         .call(d3.axisBottom(x));
 
     var y = d3.scaleLinear()
-        .domain([0, 5])
+        .domain([1.4, 4.2])
         .range([height, 0]);
     svg.append('g')
         .attr('id', 'y_axis')
@@ -454,6 +454,49 @@ function createSheet(data) {
         .transition().duration(1000).delay(1950)
         .attr('y', 676)
         .text('US');
+
+
+    // ANNOTATION
+    var annotation = d3.select('#plot')
+    .append('g')
+    .attr('id', 'annotation')
+
+    annotation.append('rect')
+        .attr('id', 'box')
+        .attr('width', 300)
+        .attr('height', 100)
+        .style('fill', '#912f40')
+        .style('opacity', 0.9)
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 10) + ')')
+
+    annotation.append('text')
+        .attr('id', 'line_1')
+        .attr('x', 25)
+        .attr('y', 30)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 10) + ')')
+        .text('There are also many differences')
+
+    annotation.append('text')
+        .attr('id', 'line_2')
+        .attr('x', 25)
+        .attr('y', 50)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 10) + ')')
+        .text('in response between countries.')
+
+    annotation.append('text')
+        .attr('id', 'next')
+        .attr('x', 250)
+        .attr('y', 80)
+        .style('fill', '#fffffa')
+        .transition().duration(1000)
+        .attr('transform', 'translate(' + (120) + ',' + (margin * 10) + ')')
+        .text('Next')
+        .attr('onclick', 'nextAnnotation(1)')
 }
 
 function parseData(data, keyIn) {

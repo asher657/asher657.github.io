@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Sheet 3</title>
+        <title>Differnces Between Country</title>
         <link rel='stylesheet' href='style.css'>
         <link rel='stylesheet' href='sheet1.css'>
         <script src='https://d3js.org/d3.v5.min.js'></script>
@@ -19,27 +19,10 @@
         <div id='header'></div>
         <div id='main' class='row'>
             <div id='sheet'>
-                <text>Sheet 3</text>
+                <text>Differences Between Country</text>
             </div>
             <br>
-            <div id='graph' class='column'></div>
-            <div id='ui' class='column'>
-                <div id='ui_child' class='column'>
-                    <div id=x_axis class='dropdown'>
-                        <button id='x_btn' class='dropbtn' value='Care'>Choose x axis</button>
-                        <div class='dropdown-content'>
-                            <a onclick="chooseXAxis('Care')">Care</a>
-                            <a onclick="chooseXAxis('Fairness')">Fairness</a>
-                            <a onclick="chooseXAxis('Loyalty')">Loyalty</a>
-                            <a onclick="chooseXAxis('Authority')">Authority</a>
-                            <a onclick="chooseXAxis('Sanctity')">Sanctity</a>
-                        </div>
-                    </div>
-                </div>
-                <div style="padding-left: 50px; padding-right: 50px; padding-top: 20px;">
-                    <button id='submit_axes' onclick="submitAxes()">View Graph</button>
-                </div>
-            </div>
+            <div id='graph'></div>
         <br><br><br>
         </div>
 
@@ -48,6 +31,69 @@
                 var data = await d3.csv('data/CountryAvg.csv');
 
                 createSheet(data);
+            }
+        </script>
+
+        <script>
+            function nextAnnotation(num) {
+                var width = 700;
+                var height = 700;
+                var margin = 50;
+
+                var box = d3.select('#box');
+                var line_1 = d3.select('#line_1');
+                var line_2 = d3.select('#line_2');
+                var next = d3.select('#next');
+                if (num == 1) {
+                    box.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 250) + ',' + (margin * 1) + ')');
+
+                    line_1.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 250) + ',' + (margin * 1) + ')')
+                        .text('The highest fairness can be');
+
+                    line_2.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 250) + ',' + (margin * 1) + ')')
+                        .text('found in Spain.');
+
+                    next.transition().duration(1000)
+                        .attr('transform', 'translate(' + (width - 250) + ',' + (margin * 1) + ')')
+                        .attr('onclick', 'nextAnnotation(2)')
+                } else if (num == 2) {
+                    line_1.text('While the lowest fairness is');
+
+                    line_2.text('found in the Netherlands.');
+
+                    next.attr('onclick', 'nextAnnotation(3)')
+                } else if (num == 3) {
+                    box.transition().duration(1000)
+                        .attr('transform', 'translate(' + (1050) + ',' + (margin * 12) + ')');
+                    
+                    line_1.transition().duration(1000)
+                        .attr('transform', 'translate(' + (1050) + ',' + (margin * 12) + ')')
+                        .text('Spain also has the lowest Sanctity.');
+
+                    line_2.transition().duration(1000)
+                        .attr('transform', 'translate(' + (1050) + ',' + (margin * 12) + ')')
+                        .text('While Iran has the highest.');
+
+                    next.attr('onclick', 'nextAnnotation(4)')
+                        .transition().duration(1000)
+                        .attr('transform', 'translate(' + (1050) + ',' + (margin * 12) + ')')
+                        .text('Close');
+                } else if (num == 4) {
+                    box.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    line_1.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    line_2.transition().duration(1000)
+                        .style('opacity', 0);
+
+                    next.transition().duration(1000)
+                        .style('opacity', 0);
+                }
             }
         </script>
 
