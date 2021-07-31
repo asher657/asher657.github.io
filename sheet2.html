@@ -63,10 +63,133 @@
                 createSheet('Care', map);
             }
 
-            
             function submit() {
                 var moral = document.getElementById('moral_button').value;
                 updateSheet(moral, map);
+            }
+
+            function updateSheet(moral, map) {
+                var counts = getCounts(map, moral);
+
+                var tooltip = d3.select('#tooltip');
+
+                var male = '#40434e';
+                var female = '#912f40';
+
+                var margin = 50,
+                    width = 700,
+                    height = 700;
+
+                var svg = d3.select('#svg');
+
+                d3.select('#x_label')
+                    .text('Responses for ' + moral);
+
+                var y = d3.scaleLinear()
+                    .domain([0, Math.max(counts.male.max, counts.female.max)])
+                    .range([height, 0]);
+
+                d3.select('#y_axis')
+                    .transition().duration(2000)
+                    .call(d3.axisLeft(y));
+
+                // MALE -------------------------------------------------------------------
+                d3.select('#m_1')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.male.bin_1); })
+                    .attr('y', function() { return y(counts.male.bin_1); });
+
+                d3.select('#m_2')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.male.bin_2); })
+                    .attr('y', function() { return y(counts.male.bin_2); });
+                
+                d3.select('#m_3')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.male.bin_3); })
+                    .attr('y', function() { return y(counts.male.bin_3); });
+
+                d3.select('#m_4')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.male.bin_4); })
+                    .attr('y', function() { return y(counts.male.bin_4); });
+
+                d3.select('#m_5')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.male.bin_5); })
+                    .attr('y', function() { return y(counts.male.bin_5); });
+
+                // FEMALE -------------------------------------------------------------------
+                d3.select('#f_1')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.female.bin_1); })
+                    .attr('y', function() { return y(counts.female.bin_1); });
+
+                d3.select('#f_2')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.female.bin_2); })
+                    .attr('y', function() { return y(counts.female.bin_2); });
+                
+                d3.select('#f_3')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.female.bin_3); })
+                    .attr('y', function() { return y(counts.female.bin_3); });
+
+                d3.select('#f_4')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.female.bin_4); })
+                    .attr('y', function() { return y(counts.female.bin_4); });
+
+                d3.select('#f_5')
+                    .transition().duration(2000)
+                    .attr('height', function() { return 700 - y(counts.female.bin_5); })
+                    .attr('y', function() { return y(counts.female.bin_5); });   
+                    
+                    
+                d3.select('#fill_1')
+                .on('mouseover', function() {
+                        tooltip.style('opacity', 1)
+                        .style('left', (event.pageX) + 'px')
+                        .style('top', (event.pageY)+ 'px')
+                        .html('Female: ' + precision(counts.female.bin_1) + '%' + '\n' + 'Male:' + precision(counts.male.bin_1) + '%')
+                    })
+                    .on('mouseout', function() { tooltip.style('opacity', 0) });
+
+                d3.select('#fill_2')
+                    .on('mouseover', function() {
+                        tooltip.style('opacity', 1)
+                        .style('left', (event.pageX) + 'px')
+                        .style('top', (event.pageY)+ 'px')
+                        .html('Female: ' + precision(counts.female.bin_2) + '%' + '\n' + 'Male:' + precision(counts.male.bin_2) + '%')
+                    })
+                    .on('mouseout', function() { tooltip.style('opacity', 0) });
+
+                d3.select('#fill_3')
+                    .on('mouseover', function() {
+                        tooltip.style('opacity', 1)
+                        .style('left', (event.pageX) + 'px')
+                        .style('top', (event.pageY)+ 'px')
+                        .html('Female: ' + precision(counts.female.bin_3) + '%' + '\n' + 'Male:' + precision(counts.male.bin_3) + '%')
+                    })
+                    .on('mouseout', function() { tooltip.style('opacity', 0) });
+
+                d3.select('#fill_4')
+                    .on('mouseover', function() {
+                        tooltip.style('opacity', 1)
+                        .style('left', (event.pageX) + 'px')
+                        .style('top', (event.pageY)+ 'px')
+                        .html('Female: ' + precision(counts.female.bin_4) + '%' + '\n' + 'Male:' + precision(counts.male.bin_4) + '%')
+                    })
+                    .on('mouseout', function() { tooltip.style('opacity', 0) });
+
+                d3.select('#fill_5')
+                    .on('mouseover', function() {
+                        tooltip.style('opacity', 1)
+                        .style('left', (event.pageX) + 'px')
+                        .style('top', (event.pageY)+ 'px')
+                        .html('Female: ' + precision(counts.female.bin_5) + '%' + '\n' + 'Male:' + precision(counts.male.bin_5) + '%')
+                    })
+                    .on('mouseout', function() { tooltip.style('opacity', 0) });
             }
 
         </script>

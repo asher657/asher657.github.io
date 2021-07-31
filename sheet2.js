@@ -43,6 +43,7 @@ function createSheet(column, map) {
     svg.append('text')
         .attr('x', width / 2.5)
         .attr('y', height + margin * 1.25)
+        .attr('id', 'x_label')
         .text('Responses for ' + column)
         .style('font-size', 25)
     
@@ -177,6 +178,7 @@ function createSheet(column, map) {
         .attr('y', 0)
         .attr('width', 140)
         .attr('height', 700)
+        .attr('id', 'fill_1')
         .on('mouseover', function() {
             tooltip.style('opacity', 1)
             .style('left', (event.pageX) + 'px')
@@ -192,6 +194,7 @@ function createSheet(column, map) {
         .attr('y', 0)
         .attr('width', 140)
         .attr('height', 700)
+        .attr('id', 'fill_2')
         .on('mouseover', function() {
             tooltip.style('opacity', 1)
             .style('left', (event.pageX) + 'px')
@@ -207,6 +210,7 @@ function createSheet(column, map) {
         .attr('y', 0)
         .attr('width', 140)
         .attr('height', 700)
+        .attr('id', 'fill_3')
         .on('mouseover', function() {
             tooltip.style('opacity', 1)
             .style('left', (event.pageX) + 'px')
@@ -222,6 +226,7 @@ function createSheet(column, map) {
         .attr('y', 0)
         .attr('width', 140)
         .attr('height', 700)
+        .attr('id', 'fill_4')
         .on('mouseover', function() {
             tooltip.style('opacity', 1)
             .style('left', (event.pageX) + 'px')
@@ -237,6 +242,7 @@ function createSheet(column, map) {
         .attr('y', 0)
         .attr('width', 140)
         .attr('height', 700)
+        .attr('id', 'fill_5')
         .on('mouseover', function() {
             tooltip.style('opacity', 1)
             .style('left', (event.pageX) + 'px')
@@ -354,23 +360,23 @@ function precision(x) {
     return Number.parseFloat(x).toPrecision(2);
 }
 
-function updateSheet(column, map) {
-    var counts = getCounts(map, column);
+// function updateSheet(column, map) {
+//     var counts = getCounts(map, column);
 
-    var tooltip = d3.select('#tooltip');
+//     var tooltip = d3.select('#tooltip');
 
-    var male = '#40434e';
-    var female = '#912f40';
+//     var male = '#40434e';
+//     var female = '#912f40';
 
-    var margin = 50,
-        width = 700,
-        height = 700;
+//     var margin = 50,
+//         width = 700,
+//         height = 700;
 
-    var svg = d3.select('#svg');
+//     var svg = d3.select('#svg');
 
-    var y = d3.scaleLinear()
-        .domain([0, Math.max(counts.male.max, counts.female.max)])
-        .range([height, 0]);
-    svg.select('#y_axis')
-        .call(d3.axisLeft(y));
-}
+//     var y = d3.scaleLinear()
+//         .domain([0, Math.max(counts.male.max, counts.female.max)])
+//         .range([height, 0]);
+//     svg.select('#y_axis')
+//         .call(d3.axisLeft(y));
+// }
